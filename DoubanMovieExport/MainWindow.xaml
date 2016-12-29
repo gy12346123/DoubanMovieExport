@@ -1,5 +1,6 @@
 ﻿<Controls:MetroWindow x:Class="DoubanMovieExport.MainWindow"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,8 +10,8 @@
         WindowStartupLocation="Manual"
         NonActiveGlowBrush="#FFAEC9"
         GlowBrush="{DynamicResource AccentColorBrush}"
-        Title="DoubanMovieExport" Height="350" Width="525" Loaded="Window_Loaded">
-    <Grid>
+        Title="DoubanMovieExport" Height="350" Width="300" Loaded="Window_Loaded">
+    <Grid Name="grid_Main">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -20,6 +21,7 @@
                         Grid.Row="0"
                         Width="50"
                         Height="50"
+                        ToolTip="Login your Douban account."
                         Style="{DynamicResource MetroCircleButtonStyle}" Click="button_Login_Click" >
                 <Rectangle Width="20"
                                Height="20"
@@ -29,7 +31,28 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
+            
+            <Button Name="button_Export"
+                        Grid.Row="0"
+                        Margin="20,0,0,0"
+                        Width="50"
+                        Height="50"
+                        ToolTip="Save your movies viewing info."
+                        Style="{DynamicResource MetroCircleButtonStyle}" Click="button_Export_Click" >
+                <Rectangle Width="20"
+                               Height="20"
+                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform" Visual="{iconPacks:PackIconMaterial Kind=FileExport}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
         </WrapPanel>
-
+        <StackPanel Grid.Row="1" Margin="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding TotalPage, StringFormat='TotalPage: {0}'}" Margin="5"/>
+            <TextBlock Text="{Binding LoadPage, StringFormat='LoadPage: {0}'}" Margin="5"/>
+            <TextBlock Text="{Binding SaveItem, StringFormat='SaveItems: {0}'}" Margin="5"/>
+            <TextBlock Text="{Binding Exception, StringFormat='Exception: {0}'}" Margin="5"/>
+        </StackPanel>
     </Grid>
 </Controls:MetroWindow>
