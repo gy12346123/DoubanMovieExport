@@ -1,0 +1,35 @@
+﻿<Controls:MetroWindow x:Class="DoubanMovieExport.MainWindow"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DoubanMovieExport"
+        mc:Ignorable="d"
+        WindowStartupLocation="Manual"
+        NonActiveGlowBrush="#FFAEC9"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        Title="DoubanMovieExport" Height="350" Width="525" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,0">
+            <Button Name="button_Login"
+                        Grid.Row="0"
+                        Width="50"
+                        Height="50"
+                        Style="{DynamicResource MetroCircleButtonStyle}" Click="button_Login_Click" >
+                <Rectangle Width="20"
+                               Height="20"
+                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform" Visual="{DynamicResource appbar_browser_chrome}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </WrapPanel>
+
+    </Grid>
+</Controls:MetroWindow>

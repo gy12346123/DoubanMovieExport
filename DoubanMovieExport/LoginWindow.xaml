@@ -1,0 +1,14 @@
+﻿<Controls:MetroWindow x:Class="DoubanMovieExport.LoginWindow"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DoubanMovieExport"
+        xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        mc:Ignorable="d"
+        Title="Login" Height="500" Width="500" Loaded="MetroWindow_Loaded">
+    <Grid>
+        <cefSharp:ChromiumWebBrowser Name="webBrowser" Width="auto" Height="auto" Visibility="Hidden" />
+    </Grid>
+</Controls:MetroWindow>
