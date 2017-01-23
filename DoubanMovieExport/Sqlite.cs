@@ -13,6 +13,9 @@ namespace DoubanMovieExport
         private static string DataBase_Movie = "Data Source =" + System.AppDomain.CurrentDomain.BaseDirectory + @"DB\Movie.db";
         private static string Path_Movie = System.AppDomain.CurrentDomain.BaseDirectory + @"DB\Movie.db";
 
+        /// <summary>
+        /// Create table for first
+        /// </summary>
         public static async void FirstCreate()
         {
             try
@@ -41,6 +44,18 @@ namespace DoubanMovieExport
 
         }
 
+        /// <summary>
+        /// Insert movie item
+        /// </summary>
+        /// <param name="title">Title</param>
+        /// <param name="subtitle">Subtitle</param>
+        /// <param name="URL">URL</param>
+        /// <param name="image">Image</param>
+        /// <param name="intro">Introduce</param>
+        /// <param name="tags">Tags</param>
+        /// <param name="date">Date</param>
+        /// <param name="comment">Comments</param>
+        /// <returns></returns>
         public static Task<bool> Insert(string title, string subtitle, string URL, string image, string intro, string tags, string date, string comment)
         {
             return Task.Factory.StartNew(()=> {

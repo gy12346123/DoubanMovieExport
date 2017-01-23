@@ -110,7 +110,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Export2Excel.cs" />
     <Compile Include="Sqlite.cs" />
     <Compile Include="Struct.cs" />
     <Compile Include="UIData.cs" />

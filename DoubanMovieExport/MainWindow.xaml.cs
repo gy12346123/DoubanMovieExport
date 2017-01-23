@@ -23,11 +23,21 @@ namespace DoubanMovieExport
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        /// <summary>
+        /// Base path
+        /// </summary>
         public static readonly string BasePath = System.AppDomain.CurrentDomain.BaseDirectory;
 
+        /// <summary>
+        /// Cookie path
+        /// </summary>
         public static readonly string Douban_CookiePath = BasePath + @"Cookie\Douban.txt";
 
+        /// <summary>
+        /// UI data for display
+        /// </summary>
         public static UIData uiData;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -50,10 +60,10 @@ namespace DoubanMovieExport
                 FileInfo file = new FileInfo(Douban_CookiePath);
 
                 LoginWindow LW = new LoginWindow("https://accounts.douban.com/login");
-                //LoginWindow LW = new LoginWindow("https://movie.douban.com/");
+
                 LW.Owner = this;
                 LW.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                //LW.CookieLocalPath = Baidu_CookiePath;
+
                 if ((bool)LW.ShowDialog())
                 {
                     List<string> cookieList = LW.CookieList;
@@ -75,17 +85,20 @@ namespace DoubanMovieExport
         {
             try
             {
+                // Total item
                 int endNum = await Export.GetEndItemNumAsync("https://movie.douban.com/mine?status=collect");
                 if (endNum < 1)
                 {
                     await this.ShowMessageAsync("Failed", "Get the number end of page error.");
                     return;
                 }
+                // Total page
                 uiData.TotalPage = endNum / 15;
                 Sqlite.FirstCreate();
 
                 for (int i = 0; i <= endNum; i += 15)
                 {
+                    // Movie items
                     var items = await Export.GetMovieAsync(string.Format("https://movie.douban.com/mine?status=collect&start={0}&sort=time&rating=all&filter=all&mode=grid", i));
                     if (i != 0)
                     {
@@ -98,6 +111,7 @@ namespace DoubanMovieExport
 
                     foreach (var movie in items)
                     {
+                        // Insert into database
                         if (await Sqlite.Insert(movie.Title, movie.SubTitle, movie.URL, movie.Image, movie.Intro, movie.Tags, movie.Date, movie.Comment))
                         {
                             uiData.SaveItem++;

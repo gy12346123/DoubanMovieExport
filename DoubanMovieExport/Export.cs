@@ -35,7 +35,7 @@ namespace DoubanMovieExport
         /// Load cookies from local file
         /// </summary>
         /// <param name="path">Local path</param>
-        /// <param name="overwrite">Need overwrite</param>
+        /// <param name="overwrite">Read cookies from path forcibly</param>
         public static void LoadCookie(string path, bool overwrite = false)
         {
             if (Cookies == null || Cookies.Equals("") || overwrite)
@@ -57,7 +57,7 @@ namespace DoubanMovieExport
         /// Async load cookies form local file
         /// </summary>
         /// <param name="path">Local path</param>
-        /// <param name="overwrite">Need overwrite</param>
+        /// <param name="overwrite">Read cookies from path forcibly</param>
         /// <returns></returns>
         public static Task LoadCookieAsync(string path, bool overwrite = false)
         {
@@ -93,6 +93,11 @@ namespace DoubanMovieExport
             return false;
         }
 
+        /// <summary>
+        /// Get movie item from url
+        /// </summary>
+        /// <param name="url">Moive page</param>
+        /// <returns></returns>
         public static MovieItem[] GetMovie(string url)
         {
             if (!CheckCookie()) LoadCookie(MainWindow.Douban_CookiePath);
@@ -173,6 +178,11 @@ namespace DoubanMovieExport
             throw new Exception("No match..");
         }
 
+        /// <summary>
+        /// Get movie item from url
+        /// </summary>
+        /// <param name="url">Moive page</param>
+        /// <returns></returns>
         public static Task<MovieItem[]> GetMovieAsync(string url)
         {
             return Task.Factory.StartNew(()=> {
@@ -187,6 +197,11 @@ namespace DoubanMovieExport
             });
         }
 
+        /// <summary>
+        /// Get total item count
+        /// </summary>
+        /// <param name="url">List page</param>
+        /// <returns></returns>
         public static int GetEndItemNum(string url)
         {
             if (!CheckCookie()) LoadCookie(MainWindow.Douban_CookiePath);
@@ -219,6 +234,11 @@ namespace DoubanMovieExport
             return -1;
         }
 
+        /// <summary>
+        /// Get total item count async
+        /// </summary>
+        /// <param name="url">List page</param>
+        /// <returns></returns>
         public static Task<int> GetEndItemNumAsync(string url)
         {
             return Task.Factory.StartNew(()=> {
