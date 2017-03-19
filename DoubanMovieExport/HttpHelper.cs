@@ -6,8 +6,8 @@
 /// 编 码 人：苏飞
 /// 联系方式：361983679  
 /// 官方网址：http://www.sufeinet.com/thread-3-1-1.html
-/// 修改日期：2016-05-05
-/// 版 本 号：1.6
+/// 修改日期：2017-01-16
+/// 版 本 号：1.8
 /// </summary>
 using System;
 using System.Collections.Generic;
@@ -368,6 +368,10 @@ namespace DotNet4.Utilities
                     request.ContentLength = buffer.Length;
                     request.GetRequestStream().Write(buffer, 0, buffer.Length);
                 }
+                else
+                {
+                    request.ContentLength = 0;
+                }
             }
         }
         /// <summary>
@@ -619,7 +623,7 @@ namespace DotNet4.Utilities
         //     获取或设置用于请求的 HTTP 版本。返回结果:用于请求的 HTTP 版本。默认为 System.Net.HttpVersion.Version11。
         /// </summary>
         public Version ProtocolVersion { get; set; }
-        private Boolean _expect100continue = true;
+        private Boolean _expect100continue = false;
         /// <summary>
         ///  获取或设置一个 System.Boolean 值，该值确定是否使用 100-Continue 行为。如果 POST 请求需要 100-Continue 响应，则为 true；否则为 false。默认值为 true。
         /// </summary>
@@ -737,17 +741,17 @@ namespace DotNet4.Utilities
                     {
                         if (Header.AllKeys.Any(k => k.ToLower().Contains("location")))
                         {
-                            string locationurl = Header["location"].ToString().ToLower();
-
+                            string baseurl = Header["location"].ToString().Trim();
+                            string locationurl = baseurl.ToLower();
                             if (!string.IsNullOrWhiteSpace(locationurl))
                             {
                                 bool b = locationurl.StartsWith("http://") || locationurl.StartsWith("https://");
                                 if (!b)
                                 {
-                                    locationurl = new Uri(new Uri(ResponseUri), locationurl).AbsoluteUri;
+                                    baseurl = new Uri(new Uri(ResponseUri), baseurl).AbsoluteUri;
                                 }
                             }
-                            return locationurl;
+                            return baseurl;
                         }
                     }
                 }
